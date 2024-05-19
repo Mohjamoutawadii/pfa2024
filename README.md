@@ -1,17 +1,10 @@
 # Projet Dents
 
-Bienvenue dans notre projet ! Pour faciliter l'accès à la vidéo en raison de sa longueur, nous l'avons téléchargée sur Mega. Il vous suffit de cliquer sur ce lien pour télécharger le fichier ZIP contenant la vidéo.
-
-
-1. Accédez à la vidéo en suivant le lien Mega mentionné ci-dessus.
-2. Une fois le fichier ZIP téléchargé, extrayez son contenu dans le répertoire de votre choix.
-3. Pour créer un compte administrateur, utilisez les informations suivantes :
-    - **Nom d'utilisateur (Username):** admin
-    - **Mot de passe (Password):** admin
-    - **Note importante sur le mot de passe :** Le mot de passe est haché pour des raisons de sécurité. Utilisez donc la chaîne suivante :
-      ```
-      $2a$10$ZRSKr53Nvjb07URwRAfP/eZ2SWchJiP67WIk7MM3mBAtz1pME9hma
-      ```
-lien MEGA: https://mega.nz/file/MetDgQDS#wlnc8SrHwyXoFZy3fD-KTqBlQDyzJsp4nMUbsV96Ljc
-
-
+1. Pour récupérer notre image backend, utilisez : `docker pull mohjamoutawadii1164/pfa2024:backend`
+2. Créez un réseau : `docker network create mohja`
+3. Lancez SQL : `docker run --name mysql-container --network mohja -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=dents -d mysql:latest`
+4. Lancez phpMyAdmin : `docker run --name phpmyadmin-container --network mohja -d --link mysql-container:db -p 8084:80 phpmyadmin`
+5. Lancez l'application : `docker run --name backend-container --net mohja -p 5050:5050 --link mysql-container:mysql -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/dents -e SPRING_DATASOURCE_USERNAME=root -e SPRING_DATASOURCE_PASSWORD=root mohjamoutawadii1164/pfa2024:backend`. Cela créera automatiquement un utilisateur dans votre base de données, mais vous devez accéder à votre base de données en utilisant http://localhost:8084/ (root pour le nom d'utilisateur et le mot de passe) allez dans la table admin -> insert -> et choisissez l'ID de l'utilisateur créé.
+6. Accédez à l'application en utilisant localhost:5050/login.
+8. Nom d'utilisateur admin : admin
+9. Mot de passe admin : 1234
